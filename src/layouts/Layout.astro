@@ -1,0 +1,86 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title = "SuperApp Pro - Aumente sua produtividade",
+  description = "SuperApp Pro é a solução definitiva para aumentar sua produtividade com recursos avançados de gerenciamento de tarefas e integração com diversas plataformas.",
+  image = "/images/superapp-og.jpg",
+  canonicalUrl = Astro.url.href,
+} = Astro.props;
+
+// Remover barras duplicadas na URL canônica
+const canonical = canonicalUrl.replace(/([^:]\/)\/+/g, "$1");
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- SEO Meta Tags Primárias -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="keywords" content="landing pages, páginas de conversão, marketing digital, criação de sites, lpsell" />
+		<link rel="canonical" href={canonical} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, Astro.url)} />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonical} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+		
+		<!-- Controle de Indexação -->
+		<meta name="robots" content="index, follow" />
+		
+		<!-- Preload de Fontes -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+		
+		<!-- Animações CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	</head>
+	<body class="font-sans antialiased text-gray-800 bg-gradient-to-b from-indigo-50 to-white">
+		<slot />
+		
+		<!-- Script para animações ao scroll -->
+		<script is:inline>
+			document.addEventListener('DOMContentLoaded', function() {
+				const animatedElements = document.querySelectorAll('.animate-on-scroll');
+				
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							const el = entry.target;
+							const animation = el.dataset.animation || 'fadeIn';
+							el.classList.add('animate__animated', `animate__${animation}`);
+							observer.unobserve(el);
+						}
+					});
+				}, { threshold: 0.1 });
+				
+				animatedElements.forEach(el => {
+					observer.observe(el);
+				});
+			});
+		</script>
+	</body>
+</html>

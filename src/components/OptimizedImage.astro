@@ -1,0 +1,96 @@
+---
+// Componente para otimização de imagens
+// Utiliza a API de imagens do Astro para otimizar automaticamente as imagens
+
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  format?: 'webp' | 'avif' | 'jpeg' | 'png' | 'svg';
+  quality?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+
+const {
+  src,
+  alt,
+  width = 800,
+  height = 600,
+  format = 'webp',
+  quality = 80,
+  class: className = '',
+  loading = 'lazy',
+  decoding = 'async',
+  fetchpriority = 'auto'
+} = Astro.props;
+
+// Verifica se a imagem é externa (começa com http ou https)
+const isExternalImage = src.startsWith('http');
+
+// Função para gerar srcset para diferentes tamanhos de tela
+const generateSrcSet = (imageSrc: string) => {
+  if (isExternalImage) return undefined;
+  
+  // Tamanhos comuns para diferentes dispositivos
+  const sizes = [320, 640, 960, 1280, 1920];
+  
+  // Filtra tamanhos maiores que a largura original
+  const filteredSizes = sizes.filter(size => size <= width * 2);
+  
+  // Se não houver tamanhos válidos, retorna undefined
+  if (filteredSizes.length === 0) return undefined;
+  
+  // Gera o srcset
+  return filteredSizes
+    .map(size => `${imageSrc} ${size}w`)
+    .join(', ');
+};
+
+// Gera o srcset
+const srcset = generateSrcSet(src);
+---
+
+{isExternalImage ? (
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    class={className}
+    loading={loading}
+    decoding={decoding}
+    fetchpriority={fetchpriority}
+  />
+) : (
+  <picture>
+    {format === 'webp' && (
+      <source
+        srcset={srcset}
+        type="image/webp"
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
+    )}
+    {format === 'avif' && (
+      <source
+        srcset={srcset}
+        type="image/avif"
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
+    )}
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      class={className}
+      loading={loading}
+      decoding={decoding}
+      fetchpriority={fetchpriority}
+      sizes="(max-width: 768px) 100vw, 50vw"
+    />
+  </picture>
+)}

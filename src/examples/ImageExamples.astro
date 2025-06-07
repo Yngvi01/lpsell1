@@ -1,0 +1,231 @@
+---
+/**
+ * Exemplos de uso dos componentes de imagem
+ * 
+ * Este arquivo contém exemplos de como usar os componentes de imagem
+ * em diferentes contextos e com diferentes configurações.
+ */
+
+import Layout from '../layouts/Layout.astro';
+import OptimizedImage from '../components/OptimizedImage.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import { generatePlaceholder } from '../utils/imageUtils';
+import { getSizes } from '../config/image';
+
+// Exemplos de URLs de imagens
+const exampleImages = {
+  local: '/images/example.jpg', // Imagem local (deve existir em public/images/)
+  external: 'https://images.unsplash.com/photo-1682687982501-1e58ab814714', // Imagem externa
+  placeholder: generatePlaceholder('#e2e8f0', 800, 600), // Placeholder gerado
+};
+
+// Configurações de tamanhos para diferentes contextos
+const exampleSizes = {
+  hero: getSizes({ mobile: '100vw', tablet: '100vw', desktop: '100vw' }),
+  card: getSizes({ mobile: '100vw', tablet: '50vw', desktop: '33vw' }),
+  sidebar: getSizes({ mobile: '100vw', tablet: '33vw', desktop: '25vw' }),
+};
+---
+
+<Layout
+  title="Exemplos de Imagens - SuperApp Pro"
+  description="Exemplos de uso dos componentes de imagem do SuperApp Pro."
+>
+  <main class="container mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Exemplos de Componentes de Imagem</h1>
+    
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4">OptimizedImage Básico</h2>
+      <p class="mb-4">Componente básico para exibir imagens otimizadas.</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+        <div>
+          <h3 class="text-lg font-semibold mb-2">Imagem Local</h3>
+          <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+            <OptimizedImage 
+              src={exampleImages.local} 
+              alt="Exemplo de imagem local" 
+              width={800} 
+              height={450} 
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <pre class="mt-2 p-2 bg-gray-100 rounded text-sm overflow-x-auto">{`<OptimizedImage 
+  src="${exampleImages.local}" 
+  alt="Exemplo de imagem local" 
+  width={800} 
+  height={450} 
+  loading="lazy"
+  class="w-full h-full object-cover"
+/>`}</pre>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-2">Imagem Externa</h3>
+          <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+            <OptimizedImage 
+              src={exampleImages.external} 
+              alt="Exemplo de imagem externa" 
+              width={800} 
+              height={450} 
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <pre class="mt-2 p-2 bg-gray-100 rounded text-sm overflow-x-auto">{`<OptimizedImage 
+  src="${exampleImages.external}" 
+  alt="Exemplo de imagem externa" 
+  width={800} 
+  height={450} 
+  loading="lazy"
+  class="w-full h-full object-cover"
+/>`}</pre>
+        </div>
+      </div>
+    </section>
+    
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4">ResponsiveImage Avançado</h2>
+      <p class="mb-4">Componente avançado com suporte a imagens responsivas, lazy loading e placeholders.</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+        <div>
+          <h3 class="text-lg font-semibold mb-2">Imagem Hero (Banner)</h3>
+          <div class="bg-gray-100 rounded-lg overflow-hidden">
+            <ResponsiveImage 
+              src={exampleImages.external} 
+              alt="Banner hero" 
+              width={1200} 
+              height={600} 
+              sizes={exampleSizes.hero}
+              loading="eager"
+              fetchpriority="high"
+              aspectRatio="2/1"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <pre class="mt-2 p-2 bg-gray-100 rounded text-sm overflow-x-auto">{`<ResponsiveImage 
+  src="${exampleImages.external}" 
+  alt="Banner hero" 
+  width={1200} 
+  height={600} 
+  sizes="${exampleSizes.hero}"
+  loading="eager"
+  fetchpriority="high"
+  aspectRatio="2/1"
+  class="w-full h-full object-cover"
+/>`}</pre>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-2">Card com Placeholder</h3>
+          <div class="bg-gray-100 rounded-lg overflow-hidden">
+            <ResponsiveImage 
+              src={exampleImages.local} 
+              alt="Imagem de card" 
+              width={800} 
+              height={600} 
+              sizes={exampleSizes.card}
+              loading="lazy"
+              aspectRatio="4/3"
+              usePlaceholder={true}
+              background="#f1f5f9"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <pre class="mt-2 p-2 bg-gray-100 rounded text-sm overflow-x-auto">{`<ResponsiveImage 
+  src="${exampleImages.local}" 
+  alt="Imagem de card" 
+  width={800} 
+  height={600} 
+  sizes="${exampleSizes.card}"
+  loading="lazy"
+  aspectRatio="4/3"
+  usePlaceholder={true}
+  background="#f1f5f9"
+  class="w-full h-full object-cover"
+/>`}</pre>
+        </div>
+      </div>
+    </section>
+    
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4">Casos de Uso Comuns</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="aspect-video">
+            <ResponsiveImage 
+              src={exampleImages.external} 
+              alt="Imagem de produto" 
+              width={640} 
+              height={360} 
+              aspectRatio="16/9"
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold mb-2">Card de Produto</h3>
+            <p class="text-sm text-gray-600">Exemplo de card de produto com imagem responsiva.</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="aspect-square">
+            <ResponsiveImage 
+              src={exampleImages.external} 
+              alt="Avatar de usuário" 
+              width={400} 
+              height={400} 
+              aspectRatio="1/1"
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold mb-2">Avatar de Usuário</h3>
+            <p class="text-sm text-gray-600">Exemplo de avatar de usuário com proporção quadrada.</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="aspect-[3/4]">
+            <ResponsiveImage 
+              src={exampleImages.external} 
+              alt="Imagem de galeria" 
+              width={600} 
+              height={800} 
+              aspectRatio="3/4"
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold mb-2">Imagem de Galeria</h3>
+            <p class="text-sm text-gray-600">Exemplo de imagem de galeria com proporção retrato.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Dicas de Otimização</h2>
+      
+      <div class="bg-blue-50 p-6 rounded-lg">
+        <h3 class="text-lg font-semibold mb-2">Boas Práticas para Imagens</h3>
+        
+        <ul class="list-disc pl-6 space-y-2">
+          <li>Sempre forneça atributos <code>alt</code> descritivos para acessibilidade e SEO.</li>
+          <li>Defina <code>width</code> e <code>height</code> para evitar layout shifts durante o carregamento.</li>
+          <li>Use <code>loading="lazy"</code> para imagens abaixo da dobra.</li>
+          <li>Use <code>fetchpriority="high"</code> apenas para imagens críticas acima da dobra.</li>
+          <li>Prefira formatos modernos como WebP e AVIF para melhor compressão.</li>
+          <li>Otimize imagens antes de adicioná-las ao projeto usando o script <code>optimize-images.js</code>.</li>
+          <li>Use placeholders para melhorar a experiência durante o carregamento.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</Layout>
