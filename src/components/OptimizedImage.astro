@@ -1,96 +1,72 @@
 ---
 // Componente para otimização de imagens
-// Utiliza a API de imagens do Astro para otimizar automaticamente as imagens
+// Utiliza a tag <Image> do Astro para otimizar automaticamente as imagens
+import { Image } from 'astro:assets';
 
 interface Props {
-  src: string;
+  src: string | ImageMetadata | Promise<{ default: ImageMetadata }>; // Permite string para imagens externas ou ImageMetadata para locais
   alt: string;
   width?: number;
   height?: number;
   format?: 'webp' | 'avif' | 'jpeg' | 'png' | 'svg';
-  quality?: number;
+  quality?: number | 'low' | 'mid' | 'high' | 'max';
   class?: string;
   loading?: 'lazy' | 'eager';
   decoding?: 'async' | 'sync' | 'auto';
   fetchpriority?: 'high' | 'low' | 'auto';
+  // Adicionando a propriedade densities para controle mais fino do srcset
+  densities?: (number | `${number}x`)[];
+  // Adicionando a propriedade widths para controle de tamanhos no srcset
+  widths?: (number | `${number}w`)[];
+  // Adicionando a propriedade sizes para o atributo sizes da tag img
+  sizes?: string;
 }
 
 const {
   src,
   alt,
-  width = 800,
-  height = 600,
-  format = 'webp',
-  quality = 80,
-  class: className = '',
+  width,
+  height,
+  format,
+  quality,
+  class: className,
   loading = 'lazy',
   decoding = 'async',
-  fetchpriority = 'auto'
+  fetchpriority = 'auto',
+  densities,
+  widths,
+  sizes
 } = Astro.props;
 
 // Verifica se a imagem é externa (começa com http ou https)
-const isExternalImage = src.startsWith('http');
-
-// Função para gerar srcset para diferentes tamanhos de tela
-const generateSrcSet = (imageSrc: string) => {
-  if (isExternalImage) return undefined;
-  
-  // Tamanhos comuns para diferentes dispositivos
-  const sizes = [320, 640, 960, 1280, 1920];
-  
-  // Filtra tamanhos maiores que a largura original
-  const filteredSizes = sizes.filter(size => size <= width * 2);
-  
-  // Se não houver tamanhos válidos, retorna undefined
-  if (filteredSizes.length === 0) return undefined;
-  
-  // Gera o srcset
-  return filteredSizes
-    .map(size => `${imageSrc} ${size}w`)
-    .join(', ');
-};
-
-// Gera o srcset
-const srcset = generateSrcSet(src);
+const isExternalImage = typeof src === 'string' && src.startsWith('http');
 ---
 
 {isExternalImage ? (
   <img
-    src={src}
+    src={src as string} // Cast para string, pois já verificamos
     alt={alt}
     width={width}
     height={height}
-    class={className}
+    class:list={[className]}
     loading={loading}
     decoding={decoding}
     fetchpriority={fetchpriority}
   />
 ) : (
-  <picture>
-    {format === 'webp' && (
-      <source
-        srcset={srcset}
-        type="image/webp"
-        sizes="(max-width: 768px) 100vw, 50vw"
-      />
-    )}
-    {format === 'avif' && (
-      <source
-        srcset={srcset}
-        type="image/avif"
-        sizes="(max-width: 768px) 100vw, 50vw"
-      />
-    )}
-    <img
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      class={className}
-      loading={loading}
-      decoding={decoding}
-      fetchpriority={fetchpriority}
-      sizes="(max-width: 768px) 100vw, 50vw"
-    />
-  </picture>
+  <Image
+    src={src as ImageMetadata | Promise<{ default: ImageMetadata }>} // Cast para o tipo esperado pelo Astro Image
+    alt={alt}
+    width={width}
+    height={height}
+    format={format}
+    quality={quality}
+    class:list={[className]}
+    loading={loading}
+    decoding={decoding}
+    fetchpriority={fetchpriority}
+    densities={densities}
+    widths={widths}
+    sizes={sizes}
+  />
 )}

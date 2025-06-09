@@ -5,12 +5,13 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "npm run optimize-images && astro build",
+    "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "optimize-images": "node scripts/optimize-images.js"
+    "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.4.1",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/vite": "^4.1.7",
     "astro": "^5.8.0",
     "fs-extra": "^11.3.0",

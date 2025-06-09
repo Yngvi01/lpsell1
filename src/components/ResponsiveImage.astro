@@ -4,140 +4,99 @@
  * 
  * Um componente avançado para exibir imagens responsivas com lazy loading e otimização para SEO.
  * Suporta imagens locais e remotas, formatos modernos (webp, avif) e placeholders.
+ * Refatorado para usar a tag <Image> do Astro.
  */
+import { Image } from 'astro:assets';
 
-import { generatePlaceholder, isExternalImage } from '../utils/imageUtils';
+// Função movida de imageUtils.ts, já que o arquivo foi removido
+const isExternalImage = (src: string): boolean => {
+  return typeof src === 'string' && src?.startsWith('http');
+};
 
 interface Props {
-  src: string;
+  src: string | ImageMetadata | Promise<{ default: ImageMetadata }>;
   alt: string;
   width?: number;
   height?: number;
-  sizes?: string;
+  sizes?: string; // Para o atributo sizes da tag img
   loading?: 'lazy' | 'eager';
   decoding?: 'async' | 'sync' | 'auto';
   fetchpriority?: 'high' | 'low' | 'auto';
   class?: string;
-  pictureClass?: string;
-  aspectRatio?: string;
+  // pictureClass e aspectRatio podem ser controlados via classes CSS ou style na tag Image
+  // objectFit é uma propriedade da tag Image
+  // background e usePlaceholder não são diretamente suportados pela tag Image, 
+  // mas placeholders podem ser feitos com `astro:assets` e CSS.
+  // Para simplificar, vamos remover background e usePlaceholder por enquanto
+  // ou o usuário pode implementar wrappers se necessário.
+  format?: 'webp' | 'avif' | 'jpeg' | 'png' | 'svg';
+  quality?: number | 'low' | 'mid' | 'high' | 'max';
+  densities?: (number | `${number}x`)[];
+  widths?: (number | `${number}w`)[];
   objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
-  background?: string;
-  usePlaceholder?: boolean;
 }
 
 const {
   src,
   alt,
-  width = 800,
-  height = 600,
-  sizes = '(max-width: 768px) 100vw, 50vw',
+  width,
+  height,
+  sizes,
   loading = 'lazy',
   decoding = 'async',
   fetchpriority = 'auto',
-  class: className = '',
-  pictureClass = '',
-  aspectRatio = 'auto',
-  objectFit = 'cover',
-  background = '#f8fafc',
-  usePlaceholder = true
+  class: className,
+  format,
+  quality,
+  densities,
+  widths,
+  objectFit = 'cover' // Default object-fit, pode ser sobrescrito
 } = Astro.props;
 
-// Verifica se a imagem é externa
-const isExternal = isExternalImage(src);
+const isExternal = isExternalImage(src as string);
 
-// Gera um placeholder para quando a imagem estiver carregando
-const placeholder = usePlaceholder ? generatePlaceholder(background, width, height) : '';
+// A lógica de placeholder e aspectRatio precisaria ser reimplementada
+// de forma diferente se desejado com a tag <Image>.
+// Por ora, focaremos na funcionalidade principal da imagem.
 
-// Define os formatos de imagem modernos para o elemento <source>
-const formats = ['webp', 'avif'];
-
-// Calcula a proporção de aspecto para o estilo
-const aspectRatioStyle = aspectRatio === 'auto' ? 'auto' : 
-  aspectRatio.includes('/') ? aspectRatio : `${width} / ${height}`;
-
-// Gera os tamanhos para srcset
-const breakpoints = [320, 640, 960, 1280, 1920];
-const filteredBreakpoints = breakpoints.filter(bp => bp <= width * 2);
-
-// Função para gerar o srcset para um formato específico
-function getSrcSet(format: string) {
-  if (isExternal) return undefined;
-  
-  // Em um projeto real, você usaria a API de imagens do Astro ou um serviço como Cloudinary
-  // Este é um exemplo simplificado
-  return filteredBreakpoints
-    .map(bp => {
-      // Em um projeto real, você geraria URLs para imagens otimizadas
-      // Por exemplo: `/images/optimized/${path.basename(src, path.extname(src))}-${bp}.${format}`
-      return `${src} ${bp}w`;
-    })
-    .join(', ');
-}
 ---
 
-<div class={`relative overflow-hidden ${pictureClass}`} style={{
-  aspectRatio: aspectRatioStyle,
-  backgroundColor: background
-}}>
-  {usePlaceholder && (
-    <div class="absolute inset-0 bg-no-repeat bg-center bg-cover" style={{
-      backgroundImage: `url(${placeholder})`,
-      filter: 'blur(10px)',
-      transform: 'scale(1.1)',
-      zIndex: 0
-    }}></div>
-  )}
-  
-  <picture class="w-full h-full">
-    {!isExternal && formats.map(format => (
-      <source 
-        type={`image/${format}`} 
-        srcset={getSrcSet(format)} 
-        sizes={sizes} 
-      />
-    ))}
-    
-    <img
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      loading={loading}
-      decoding={decoding}
-      fetchpriority={fetchpriority}
-      class={`w-full h-full relative z-10 ${objectFit} ${className}`}
-      style={{
-        objectFit
-      }}
-    />
-  </picture>
-</div>
+{isExternal ? (
+  <img
+    src={src as string}
+    alt={alt}
+    width={width}
+    height={height}
+    class:list={[className, objectFit ? `object-${objectFit}` : '']}
+    loading={loading}
+    decoding={decoding}
+    fetchpriority={fetchpriority}
+    style={{ objectFit: objectFit }} // Adiciona object-fit diretamente se necessário
+  />
+) : (
+  <Image
+    src={src as ImageMetadata | Promise<{ default: ImageMetadata }>} 
+    alt={alt}
+    width={width}
+    height={height}
+    format={format}
+    quality={quality}
+    class:list={[className]}
+    loading={loading}
+    decoding={decoding}
+    fetchpriority={fetchpriority}
+    densities={densities}
+    widths={widths}
+    sizes={sizes}
+    style={{ objectFit: objectFit }} // Passa object-fit para a tag Image
+  />
+)}
 
-<style>
-  img {
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out;
-  }
-  
-  img.loading {
-    opacity: 0;
-  }
-</style>
-
-<script>
-  // Script para detectar quando a imagem termina de carregar
-  document.addEventListener('DOMContentLoaded', () => {
-    const images = document.querySelectorAll('img');
-    
-    images.forEach(img => {
-      if (img.complete) {
-        img.classList.remove('loading');
-      } else {
-        img.classList.add('loading');
-        img.addEventListener('load', () => {
-          img.classList.remove('loading');
-        });
-      }
-    });
-  });
-</script>
+<!-- 
+  A estilização de loading e o script de detecção de carregamento 
+  podem precisar de ajustes ou podem ser tratados de forma diferente 
+  com a tag <Image> do Astro, que já lida com lazy loading. 
+  Para simplificar, o script e o estilo de loading foram removidos.
+  Considere usar as capacidades nativas do Astro ou bibliotecas de terceiros 
+  para efeitos de loading mais avançados se necessário.
+-->

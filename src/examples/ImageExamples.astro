@@ -1,30 +1,46 @@
 ---
 /**
- * Exemplos de uso dos componentes de imagem
- * 
- * Este arquivo contém exemplos de como usar os componentes de imagem
- * em diferentes contextos e com diferentes configurações.
+ * Página de exemplos para os componentes de imagem
  */
-
 import Layout from '../layouts/Layout.astro';
 import OptimizedImage from '../components/OptimizedImage.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
-import { generatePlaceholder } from '../utils/imageUtils';
-import { getSizes } from '../config/image';
 
-// Exemplos de URLs de imagens
-const exampleImages = {
-  local: '/images/example.jpg', // Imagem local (deve existir em public/images/)
-  external: 'https://images.unsplash.com/photo-1682687982501-1e58ab814714', // Imagem externa
-  placeholder: generatePlaceholder('#e2e8f0', 800, 600), // Placeholder gerado
-};
+const pageTitle = "Exemplos de Imagens - LPSell";
+const pageDescription = "Demonstração dos componentes OptimizedImage e ResponsiveImage.";
 
-// Configurações de tamanhos para diferentes contextos
-const exampleSizes = {
-  hero: getSizes({ mobile: '100vw', tablet: '100vw', desktop: '100vw' }),
-  card: getSizes({ mobile: '100vw', tablet: '50vw', desktop: '33vw' }),
-  sidebar: getSizes({ mobile: '100vw', tablet: '33vw', desktop: '25vw' }),
-};
+// Dados de exemplo para as imagens
+const images = [
+  {
+    src: '/images/card1.png', // Imagem local
+    alt: 'Exemplo de imagem local otimizada',
+    width: 800,
+    height: 600,
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80',
+    alt: 'Exemplo de imagem externa',
+    width: 800,
+    height: 600,
+    isExternal: true,
+  },
+  {
+    src: '/images/card2.png',
+    alt: 'Exemplo de imagem responsiva com aspect ratio',
+    width: 600,
+    height: 400,
+    aspectRatio: '16/9',
+  },
+  {
+    src: '/images/card3.png',
+    alt: 'Exemplo de imagem com object-fit contain',
+    width: 500,
+    height: 500,
+    objectFit: 'contain',
+    background: '#f3f4f6',
+  },
+];
+
 ---
 
 <Layout
@@ -42,14 +58,13 @@ const exampleSizes = {
         <div>
           <h3 class="text-lg font-semibold mb-2">Imagem Local</h3>
           <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden">
-            <OptimizedImage 
-              src={exampleImages.local} 
-              alt="Exemplo de imagem local" 
-              width={800} 
-              height={450} 
-              loading="lazy"
-              class="w-full h-full object-cover"
-            />
+              <OptimizedImage 
+                src={image.src} 
+                alt={image.alt} 
+                width={image.width} 
+                height={image.height} 
+                class="rounded-lg shadow-md" 
+              />
           </div>
           <pre class="mt-2 p-2 bg-gray-100 rounded text-sm overflow-x-auto">{`<OptimizedImage 
   src="${exampleImages.local}" 
@@ -222,7 +237,6 @@ const exampleSizes = {
           <li>Use <code>loading="lazy"</code> para imagens abaixo da dobra.</li>
           <li>Use <code>fetchpriority="high"</code> apenas para imagens críticas acima da dobra.</li>
           <li>Prefira formatos modernos como WebP e AVIF para melhor compressão.</li>
-          <li>Otimize imagens antes de adicioná-las ao projeto usando o script <code>optimize-images.js</code>.</li>
           <li>Use placeholders para melhorar a experiência durante o carregamento.</li>
         </ul>
       </div>

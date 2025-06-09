@@ -4,13 +4,9 @@ import Header from '../components/Header.astro';
 import '../styles/global.css';
 import OptimizedImage from '../components/OptimizedImage.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
-import { generatePlaceholder } from '../utils/imageUtils';
 
 const pageTitle = "LPSell - Landing Pages Profissionais Entregues em Horas";
 const pageDescription = "Obtenha landing pages profissionais, otimizadas e de alta conversão em poucas horas. Ideal para empreendedores, profissionais de marketing e pequenas empresas.";
-
-// Placeholder para mockup de tela
-const mockupPlaceholder = generatePlaceholder('#f8fafc', 600, 400);
 
 // Dados dos passos de como funciona
 const passos = [
@@ -47,13 +43,15 @@ const depoimentos = [
     nome: "Ana Silva",
     empresa: "Startup Inovadora",
     texto: "Fiquei impressionada com a rapidez e qualidade. Minha landing page ficou pronta em menos de 24 horas e já está convertendo muito bem!",
-    avatar: "/images/placeholder.svg"
+    avatar: "/images/placeholder.svg",
+    altAvatar: "Avatar de Ana Silva"
   },
   {
     nome: "Carlos Mendes",
     empresa: "Agência Digital",
     texto: "Como agência, precisamos de soluções rápidas para nossos clientes. O LPSell tem sido um parceiro incrível para entregarmos landing pages de qualidade em tempo recorde.",
-    avatar: "/images/placeholder.svg"
+    avatar: "/images/placeholder.svg",
+    altAvatar: "Avatar de Carlos Mendes"
   }
 ];
 ---
@@ -366,7 +364,7 @@ const depoimentos = [
 								<div class="mr-4">
 									<OptimizedImage
 										src={depoimento.avatar}
-										alt={`Foto de ${depoimento.nome}`}
+										alt={depoimento.altAvatar}
 										width={64}
 										height={64}
 										class="rounded-full"

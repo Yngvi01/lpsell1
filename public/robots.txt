@@ -2,5 +2,4 @@
 User-agent: *
 Allow: /
 
-# Sitemap (quando for implementado)
-# Sitemap: https://seusite.com/sitemap.xml
+Sitemap: /sitemap.xml
