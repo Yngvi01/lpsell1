@@ -121,13 +121,22 @@ const pageDescription = `Modelo de landing page: ${card.description}`;
 							</div>
 						</div>
 						
-						<div class="mt-8">
+						<div class="mt-8 flex flex-wrap gap-4">
 							<a href="#" class="btn-primary inline-flex items-center">
 								Adquirir Este Modelo
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
 									<path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
 								</svg>
 							</a>
+							{card.demoUrl && (
+								<a href={card.demoUrl} target="_blank" rel="noopener noreferrer" class="btn-secondary inline-flex items-center">
+									Testar Modelo
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+										<path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+										<path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
+									</svg>
+								</a>
+							)}
 						</div>
 					</div>
 				</div>
@@ -146,9 +155,18 @@ const pageDescription = `Modelo de landing page: ${card.description}`;
 						.slice(0, 3)
 						.map((otherCard, index) => (
 							<div class="animate-on-scroll" data-animation="fadeInUp" data-animation-delay={`${index * 100}`}>
-								<a href={`/area/${otherCard.slug}`} class="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-300 shadow-sm hover:shadow-md">
-									<h3 class="font-medium text-indigo-600">{otherCard.title}</h3>
-									<p class="text-sm text-gray-500 mt-1">{otherCard.description.substring(0, 60)}...</p>
+								<a href={`/area/${otherCard.slug}`} class="block border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-300 shadow-sm hover:shadow-md overflow-hidden">
+									<OptimizedImage 
+										src={otherCard.imageUrl} 
+										alt={otherCard.title} 
+										width={400} 
+										height={300} 
+										class="w-full h-48 object-cover"
+									/>
+									<div class="p-4">
+										<h3 class="font-medium text-indigo-600">{otherCard.title}</h3>
+										<p class="text-sm text-gray-500 mt-1">{otherCard.description.substring(0, 60)}...</p>
+									</div>
 								</a>
 							</div>
 						))
@@ -169,11 +187,15 @@ const pageDescription = `Modelo de landing page: ${card.description}`;
 					<p class="text-lg text-indigo-100 mb-6 max-w-2xl mx-auto">
 						Adquira este modelo agora e comece a aumentar suas conversões hoje mesmo.
 					</p>
-					<a href="#" class="btn-white inline-flex items-center">
-						Adquirir Agora
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-							<path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-						</svg>
+					<a href="https://wa.me/54999019635" target="_blank" rel="noopener noreferrer" class="btn-primary group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
+						<span class="absolute inset-0 bg-gradient-to-r from-indigo-700 to-purple-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+						<span class="relative flex items-center">
+							<svg class="w-5 h-5 mr-2 group-hover:rotate-[-15deg] transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+							Adquirir Agora
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+								<path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+							</svg>
+						</span>
 					</a>
 				</div>
 			</section>
@@ -215,17 +237,7 @@ const pageDescription = `Modelo de landing page: ${card.description}`;
 							<li><a href="/#contato" class="hover:text-white transition-colors">Contato</a></li>
 						</ul>
 					</div>
-					
-					<div>
-						<h3 class="text-lg font-semibold text-white mb-4">Recursos</h3>
-						<ul class="space-y-2">
-							<li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
-							<li><a href="#" class="hover:text-white transition-colors">Tutoriais</a></li>
-							<li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
-							<li><a href="#" class="hover:text-white transition-colors">Suporte</a></li>
-						</ul>
-					</div>
-					
+
 					<div>
 						<h3 class="text-lg font-semibold text-white mb-4">Contato</h3>
 						<ul class="space-y-2">
