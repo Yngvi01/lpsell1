@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
 import '../styles/global.css';
 import OptimizedImage from '../components/OptimizedImage.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
@@ -63,89 +64,183 @@ const depoimentos = [
   canonicalUrl={Astro.url.href}
 >
 	<main class="min-h-screen bg-gradient-to-b from-indigo-50 to-white">
-		<!-- Navbar fixa e moderna -->
-		<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
-			<div class="container mx-auto px-4">
-				<nav class="flex justify-between items-center py-4">
-					<div class="text-2xl font-bold text-indigo-800"><a href="/area">LPSell</a></div>
-					<div class="hidden md:flex items-center space-x-6">
-						<a href="/.." class="text-gray-700 hover:text-indigo-600 transition-colors">Início</a>
-						<a href="/#como-funciona" class="text-gray-700 hover:text-indigo-600 transition-colors">Como Funciona</a>
-						<a href="/area" class="text-gray-700 hover:text-indigo-600 transition-colors">Modelos</a>
-						<a href="/#depoimentos" class="text-gray-700 hover:text-indigo-600 transition-colors">Depoimentos</a>
-						<a href="/#contato" class="text-gray-700 hover:text-indigo-600 transition-colors">Contato</a>
-					</div>
-					<a href="#" class="hidden md:inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-colors shadow-sm">Adquirir Agora</a>
-					<button class="md:hidden text-gray-700" aria-label="Menu">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-						</svg>
-					</button>
-				</nav>
-			</div>
-		</header>
+		<Header currentPage="home" />
 
-		<!-- Hero section com headline impactante -->
-		<section class="pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden section-padding">
-			<div class="container mx-auto px-4">
-				<div class="flex flex-col md:flex-row items-center justify-between gap-12">
-					<div class="md:w-1/2 animate-on-scroll" data-animation="fadeInLeft">
-						<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight font-heading">
-							<span class="gradient-text">Landing Pages</span> Profissionais Entregues em Horas
+		<!-- Hero section ultra-moderno -->
+		<section class="relative pt-8 pb-16 md:pt-16 md:pb-28 overflow-hidden">
+			<!-- Background com gradiente animado -->
+			<div class="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50"></div>
+			<div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%234f46e5" fill-opacity="0.03"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
+			
+			<div class="container mx-auto px-4 relative z-10">
+				<div class="flex flex-col lg:flex-row items-center justify-between gap-16">
+					<!-- Conteúdo principal -->
+					<div class="lg:w-1/2 animate-on-scroll" data-animation="fadeInLeft">
+						<!-- Badge de destaque -->
+						<div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-700 text-sm font-medium mb-6 animate-pulse">
+							<span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-ping"></span>
+							✨ Mais de 500 landing pages entregues
+						</div>
+						
+						<h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight font-heading">
+							<span class="block">Crie</span>
+							<span class="gradient-text block animate-gradient">Landing Pages</span>
+							<span class="block">que <span class="text-green-600">Convertem</span></span>
+							<span class="block text-2xl md:text-3xl lg:text-4xl font-normal text-gray-600 mt-2">em apenas 24 horas</span>
 						</h1>
-						<p class="text-xl text-gray-700 mb-8 leading-relaxed">
-							Páginas de alta conversão, otimizadas para SEO e responsivas, sem complicação.
-							Ideal para empreendedores e profissionais de marketing que precisam de resultados rápidos.
+						
+						<p class="text-xl md:text-2xl text-gray-700 mb-10 leading-relaxed max-w-2xl">
+							Páginas profissionais, otimizadas e responsivas que <strong class="text-indigo-600">aumentam suas vendas</strong>. 
+							Sem complicação, sem demora, sem dor de cabeça.
 						</p>
-						<div class="flex flex-wrap gap-4">
-							<a href="/area" class="btn-primary inline-flex items-center">
-								Escolher um Modelo
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-									<path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-								</svg>
+						
+						<!-- Estatísticas de impacto -->
+						<div class="grid grid-cols-3 gap-6 mb-10">
+							<div class="text-center">
+								<div class="text-3xl md:text-4xl font-bold text-indigo-600 mb-1">24h</div>
+								<div class="text-sm text-gray-600">Entrega Rápida</div>
+							</div>
+							<div class="text-center">
+								<div class="text-3xl md:text-4xl font-bold text-green-600 mb-1">95%</div>
+								<div class="text-sm text-gray-600">Taxa de Conversão</div>
+							</div>
+							<div class="text-center">
+								<div class="text-3xl md:text-4xl font-bold text-purple-600 mb-1">500+</div>
+								<div class="text-sm text-gray-600">Clientes Felizes</div>
+							</div>
+						</div>
+						
+						<!-- Botões de ação aprimorados -->
+						<div class="flex flex-col sm:flex-row gap-4 mb-10">
+							<a href="/area" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
+								<span class="absolute inset-0 bg-gradient-to-r from-indigo-700 to-purple-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+								<span class="relative flex items-center">
+									🚀 Começar Agora
+									<svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+									</svg>
+								</span>
 							</a>
-							<a href="#como-funciona" class="btn-secondary inline-flex items-center">
-								Como Funciona
+							<a href="#como-funciona" class="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-indigo-600 bg-white border-2 border-indigo-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+								<svg class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								</svg>
+								Ver Como Funciona
 							</a>
 						</div>
 						
-						<!-- Badges de confiança -->
-						<div class="mt-10">
-							<p class="text-sm text-gray-500 mb-4">CONFIADO POR EMPRESAS DE TODOS OS TAMANHOS</p>
-							<div class="flex flex-wrap items-center gap-6 opacity-70">
-								<div class="h-8 w-auto text-gray-400">Empresa 1</div>
-								<div class="h-8 w-auto text-gray-400">Empresa 2</div>
-								<div class="h-8 w-auto text-gray-400">Empresa 3</div>
-								<div class="h-8 w-auto text-gray-400">Empresa 4</div>
+						<!-- Prova social melhorada -->
+						<div class="space-y-4">
+							<p class="text-sm text-gray-500 font-medium tracking-wide uppercase">Confiado por empresas inovadoras</p>
+							<div class="flex flex-wrap items-center gap-8 opacity-60">
+								<div class="flex items-center space-x-2">
+									<div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+										<span class="text-white font-bold text-sm">T</span>
+									</div>
+									<span class="text-gray-600 font-medium">TechCorp</span>
+								</div>
+								<div class="flex items-center space-x-2">
+									<div class="w-8 h-8 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+										<span class="text-white font-bold text-sm">I</span>
+									</div>
+									<span class="text-gray-600 font-medium">InnovaCo</span>
+								</div>
+								<div class="flex items-center space-x-2">
+									<div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+										<span class="text-white font-bold text-sm">D</span>
+									</div>
+									<span class="text-gray-600 font-medium">DigitalPro</span>
+								</div>
+								<div class="flex items-center space-x-2">
+									<div class="w-8 h-8 bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg flex items-center justify-center">
+										<span class="text-white font-bold text-sm">S</span>
+									</div>
+									<span class="text-gray-600 font-medium">StartupX</span>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="md:w-1/2 animate-on-scroll" data-animation="fadeInRight">
-						<div class="relative animate-float">
-							<div class="absolute -top-6 -right-6 w-64 h-64 bg-indigo-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-							<div class="absolute -bottom-8 -left-8 w-64 h-64 bg-pink-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-							<div class="absolute top-1/2 left-1/2 w-64 h-64 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-							<div class="relative">
-								<div class="bg-white p-3 rounded-2xl shadow-xl">
-									<!-- Barra de navegador simulada -->
-									<div class="bg-gray-100 rounded-lg p-2 mb-2 flex items-center">
-										<div class="flex space-x-1.5 mr-4">
-											<div class="w-3 h-3 rounded-full bg-red-400"></div>
-											<div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-											<div class="w-3 h-3 rounded-full bg-green-400"></div>
+					
+					<!-- Visual aprimorado -->
+					<div class="lg:w-1/2 animate-on-scroll" data-animation="fadeInRight">
+						<div class="relative">
+							<!-- Elementos de fundo animados -->
+							<div class="absolute -top-10 -right-10 w-72 h-72 bg-gradient-to-r from-indigo-200 to-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+							<div class="absolute -bottom-10 -left-10 w-72 h-72 bg-gradient-to-r from-pink-200 to-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+							<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-blue-200 to-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+							
+							<!-- Mockup principal -->
+							<div class="relative z-10 animate-float">
+								<div class="bg-white p-4 rounded-3xl shadow-2xl border border-gray-100">
+									<!-- Barra de navegador melhorada -->
+									<div class="bg-gray-50 rounded-2xl p-3 mb-3 flex items-center">
+										<div class="flex space-x-2 mr-4">
+											<div class="w-3 h-3 rounded-full bg-red-500 shadow-sm"></div>
+											<div class="w-3 h-3 rounded-full bg-yellow-500 shadow-sm"></div>
+											<div class="w-3 h-3 rounded-full bg-green-500 shadow-sm"></div>
 										</div>
-										<div class="bg-white rounded-md flex-1 h-6 px-2 text-xs flex items-center text-gray-400">lpsell.com.br/modelo</div>
+										<div class="bg-white rounded-xl flex-1 h-8 px-3 text-sm flex items-center text-gray-500 shadow-inner">
+											<svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+											</svg>
+											lpsell.com.br/seu-modelo
+										</div>
 									</div>
-									<div class="bg-gray-50 rounded-xl overflow-hidden">
+									
+									<!-- Conteúdo do mockup -->
+									<div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl overflow-hidden shadow-inner">
 										<ResponsiveImage
 											src="/images/image.png"
-											alt="Mockup de uma landing page profissional"
+											alt="Mockup de uma landing page profissional de alta conversão"
 											width={600}
 											height={400}
 											class="w-full h-auto"
 											loading="eager"
 											fetchpriority="high"
 										/>
+									</div>
+									
+									<!-- Indicadores de performance -->
+									<div class="mt-4 flex justify-between items-center px-2">
+										<div class="flex items-center space-x-2">
+											<div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+											<span class="text-xs text-gray-600">100% Otimizado</span>
+										</div>
+										<div class="flex items-center space-x-2">
+											<svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+											</svg>
+											<span class="text-xs text-gray-600">5.0 Rating</span>
+										</div>
+									</div>
+								</div>
+								
+								<!-- Cards flutuantes de benefícios -->
+								<div class="absolute -left-6 top-1/4 bg-white rounded-xl shadow-lg p-3 animate-bounce-slow hidden lg:block z-20">
+									<div class="flex items-center space-x-2">
+										<div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+											<svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+											</svg>
+										</div>
+										<div>
+											<div class="text-sm font-semibold text-gray-900">Entrega Rápida</div>
+											<div class="text-xs text-gray-600">24h ou menos</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="absolute -right-6 bottom-1/4 bg-white rounded-xl shadow-lg p-3 animate-bounce-slow animation-delay-1000 hidden lg:block z-20">
+									<div class="flex items-center space-x-2">
+										<div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+											<svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+											</svg>
+										</div>
+										<div>
+											<div class="text-sm font-semibold text-gray-900">SEO Otimizado</div>
+											<div class="text-xs text-gray-600">100% Google</div>
+										</div>
 									</div>
 								</div>
 							</div>

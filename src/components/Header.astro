@@ -1,0 +1,264 @@
+---
+interface Props {
+  currentPage?: string;
+}
+
+const { currentPage = '' } = Astro.props;
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100">
+  <div class="container mx-auto px-4">
+    <nav class="flex justify-between items-center py-4">
+      <div class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+        <a href="/" class="hover:scale-105 transition-transform duration-200">LPSell</a>
+      </div>
+      
+      <!-- Menu Desktop -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="/" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium relative group">
+          Início
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="/#como-funciona" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium relative group">
+          Como Funciona
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="/area" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium relative group">
+          Modelos
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="/#depoimentos" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium relative group">
+          Depoimentos
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="/#contato" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium relative group">
+          Contato
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+        </a>
+      </div>
+      
+      <!-- Botão CTA Desktop -->
+      <a href="#" class="hidden md:inline-block bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform">
+        Adquirir Agora
+      </a>
+      
+      <!-- Botão Menu Mobile Otimizado -->
+      <button 
+        id="mobile-menu-button" 
+        class="md:hidden relative w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 active:from-indigo-100 active:to-purple-100 transition-all duration-200 flex items-center justify-center group touch-manipulation" 
+        aria-label="Abrir menu de navegação"
+        aria-expanded="false"
+        type="button"
+      >
+        <div class="hamburger-lines">
+          <span class="line line1 block w-6 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 transition-all duration-300 ease-in-out"></span>
+          <span class="line line2 block w-6 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 transition-all duration-300 ease-in-out mt-1.5"></span>
+          <span class="line line3 block w-6 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 transition-all duration-300 ease-in-out mt-1.5"></span>
+        </div>
+      </button>
+    </nav>
+    
+    <!-- Menu Mobile Otimizado -->
+    <div id="mobile-menu" class="md:hidden overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+      <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl mx-4 mb-4 shadow-xl border border-gray-100 backdrop-blur-sm">
+        <div class="p-4 space-y-1">
+          <a href="/" class="mobile-menu-link block text-gray-700 active:text-white active:bg-gradient-to-r active:from-indigo-600 active:to-purple-600 transition-all duration-200 px-4 py-4 rounded-xl font-medium touch-manipulation" role="menuitem">
+            <span class="flex items-center">
+              <svg class="w-5 h-5 mr-3 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+              </svg>
+              Início
+            </span>
+          </a>
+          <a href="/#como-funciona" class="mobile-menu-link block text-gray-700 active:text-white active:bg-gradient-to-r active:from-indigo-600 active:to-purple-600 transition-all duration-200 px-4 py-4 rounded-xl font-medium touch-manipulation" role="menuitem">
+            <span class="flex items-center">
+              <svg class="w-5 h-5 mr-3 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Como Funciona
+            </span>
+          </a>
+          <a href="/area" class="mobile-menu-link block text-gray-700 active:text-white active:bg-gradient-to-r active:from-indigo-600 active:to-purple-600 transition-all duration-200 px-4 py-4 rounded-xl font-medium touch-manipulation" role="menuitem">
+            <span class="flex items-center">
+              <svg class="w-5 h-5 mr-3 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+              </svg>
+              Modelos
+            </span>
+          </a>
+          <a href="/#depoimentos" class="mobile-menu-link block text-gray-700 active:text-white active:bg-gradient-to-r active:from-indigo-600 active:to-purple-600 transition-all duration-200 px-4 py-4 rounded-xl font-medium touch-manipulation" role="menuitem">
+            <span class="flex items-center">
+              <svg class="w-5 h-5 mr-3 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+              </svg>
+              Depoimentos
+            </span>
+          </a>
+          <a href="/#contato" class="mobile-menu-link block text-gray-700 active:text-white active:bg-gradient-to-r active:from-indigo-600 active:to-purple-600 transition-all duration-200 px-4 py-4 rounded-xl font-medium touch-manipulation" role="menuitem">
+            <span class="flex items-center">
+              <svg class="w-5 h-5 mr-3 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              Contato
+            </span>
+          </a>
+          <div class="pt-4 mt-4 border-t border-gray-200">
+            <a href="#" class="block w-full text-center bg-gradient-to-r from-indigo-600 to-purple-600 active:from-indigo-700 active:to-purple-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 shadow-lg active:shadow-xl touch-manipulation" role="menuitem">
+              ✨ Adquirir Agora
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Animações para o menu hambúrguer */
+  .hamburger-lines.active .line1 {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+  
+  .hamburger-lines.active .line2 {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  
+  .hamburger-lines.active .line3 {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+  
+  /* Animação de entrada dos itens do menu */
+  .mobile-menu-link {
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: slideInDown 0.3s ease-out forwards;
+  }
+  
+  .mobile-menu-link:nth-child(1) { animation-delay: 0.1s; }
+  .mobile-menu-link:nth-child(2) { animation-delay: 0.15s; }
+  .mobile-menu-link:nth-child(3) { animation-delay: 0.2s; }
+  .mobile-menu-link:nth-child(4) { animation-delay: 0.25s; }
+  .mobile-menu-link:nth-child(5) { animation-delay: 0.3s; }
+  
+  @keyframes slideInDown {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Efeito de hover nos links do menu desktop */
+  .group:hover .absolute {
+    width: 100%;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerLines = mobileMenuButton?.querySelector('.hamburger-lines');
+    
+    if (mobileMenuButton && mobileMenu && hamburgerLines) {
+      let isMenuOpen = false;
+      
+      // Melhorar responsividade para touch
+      mobileMenuButton.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        toggleMenu();
+      });
+      
+      mobileMenuButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        toggleMenu();
+      });
+      
+      function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        
+        if (isMenuOpen) {
+          openMenu();
+        } else {
+          closeMenu();
+        }
+      }
+      
+      function openMenu() {
+        // Abrir menu
+        mobileMenu.style.maxHeight = '600px';
+        mobileMenu.style.opacity = '1';
+        hamburgerLines.classList.add('active');
+        mobileMenuButton.setAttribute('aria-expanded', 'true');
+        mobileMenuButton.setAttribute('aria-label', 'Fechar menu de navegação');
+        
+        // Prevenir scroll do body
+        document.body.style.overflow = 'hidden';
+        
+        // Adicionar classe de animação aos links
+        setTimeout(() => {
+          const links = mobileMenu.querySelectorAll('.mobile-menu-link');
+          links.forEach((link, index) => {
+            link.style.animationDelay = `${(index + 1) * 0.05}s`;
+          });
+        }, 100);
+      }
+      
+      function closeMenu() {
+        isMenuOpen = false;
+        mobileMenu.style.maxHeight = '0';
+        mobileMenu.style.opacity = '0';
+        hamburgerLines.classList.remove('active');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+        mobileMenuButton.setAttribute('aria-label', 'Abrir menu de navegação');
+        
+        // Restaurar scroll do body
+        document.body.style.overflow = '';
+      }
+      
+      // Fechar menu ao tocar/clicar em um link
+      const mobileMenuLinks = mobileMenu.querySelectorAll('.mobile-menu-link');
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener('touchstart', function() {
+          setTimeout(closeMenu, 100);
+        });
+        
+        link.addEventListener('click', function() {
+          setTimeout(closeMenu, 100);
+        });
+      });
+      
+      // Fechar menu ao tocar/clicar fora
+      document.addEventListener('touchstart', function(event) {
+        handleOutsideClick(event);
+      });
+      
+      document.addEventListener('click', function(event) {
+        handleOutsideClick(event);
+      });
+      
+      function handleOutsideClick(event) {
+        const isClickInsideMenu = mobileMenu.contains(event.target as Node);
+        const isClickOnButton = mobileMenuButton.contains(event.target as Node);
+        
+        if (!isClickInsideMenu && !isClickOnButton && isMenuOpen) {
+          closeMenu();
+        }
+      }
+      
+      // Fechar menu ao redimensionar para desktop
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768 && isMenuOpen) {
+          closeMenu();
+        }
+      });
+      
+      // Suporte para tecla ESC
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && isMenuOpen) {
+          closeMenu();
+        }
+      });
+    }
+  });
+</script>
