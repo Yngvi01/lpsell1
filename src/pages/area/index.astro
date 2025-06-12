@@ -87,7 +87,6 @@ const description = "Escolha entre nossa coleção de modelos de landing pages p
 							<li><a href="/" class="hover:text-white transition-colors">Início</a></li>
 							<li><a href="/#como-funciona" class="hover:text-white transition-colors">Como Funciona</a></li>
 							<li><a href="/area" class="hover:text-white transition-colors">Modelos</a></li>
-							<li><a href="/#depoimentos" class="hover:text-white transition-colors">Depoimentos</a></li>
 							<li><a href="/#contato" class="hover:text-white transition-colors">Contato</a></li>
 						</ul>
 					</div>
@@ -119,6 +118,101 @@ const description = "Escolha entre nossa coleção de modelos de landing pages p
 		</footer>
 	</main>
 </Layout>
+
+<!-- Scroll Progress Indicator -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">
+	<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+		<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+	</svg>
+</button>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// Scroll Progress Indicator
+		const scrollProgress = document.getElementById('scroll-progress');
+		const backToTop = document.getElementById('back-to-top');
+		const header = document.getElementById('main-header');
+		
+		function updateScrollProgress() {
+			const scrollTop = window.pageYOffset;
+			const docHeight = document.body.scrollHeight - window.innerHeight;
+			const scrollPercent = (scrollTop / docHeight) * 100;
+			scrollProgress.style.width = scrollPercent + '%';
+			
+			// Show/hide back to top button
+			if (scrollTop > 300) {
+				backToTop.classList.add('visible');
+			} else {
+				backToTop.classList.remove('visible');
+			}
+			
+			// Header background opacity
+			if (scrollTop > 50) {
+				header.style.background = 'rgba(255, 255, 255, 0.98)';
+				header.style.backdropFilter = 'blur(20px)';
+			} else {
+				header.style.background = 'rgba(255, 255, 255, 0.95)';
+				header.style.backdropFilter = 'blur(12px)';
+			}
+		}
+		
+		window.addEventListener('scroll', updateScrollProgress);
+		
+		// Back to top functionality
+		backToTop.addEventListener('click', () => {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		});
+		
+		// Mobile menu functionality
+		const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+		const mobileMenu = document.getElementById('mobile-menu');
+		
+		if (mobileMenuBtn && mobileMenu) {
+			mobileMenuBtn.addEventListener('click', () => {
+				mobileMenu.classList.toggle('hidden');
+			});
+		}
+		
+		// Smooth scroll for anchor links
+		document.querySelectorAll('.smooth-scroll').forEach(link => {
+			link.addEventListener('click', function(e) {
+				const href = this.getAttribute('href');
+				if (href.startsWith('#')) {
+					e.preventDefault();
+					const target = document.querySelector(href);
+					if (target) {
+						const offsetTop = target.offsetTop - 80; // Account for fixed header
+						window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+					}
+				}
+			});
+		});
+		
+		// Intersection Observer for scroll animations
+		const observerOptions = {
+			threshold: 0.1,
+			rootMargin: '0px 0px -50px 0px'
+		};
+		
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					const delay = entry.target.dataset.animationDelay || 0;
+					setTimeout(() => {
+						entry.target.classList.add('animate');
+					}, delay);
+				}
+			});
+		}, observerOptions);
+		
+		document.querySelectorAll('.animate-on-scroll').forEach(el => {
+			observer.observe(el);
+		});
+	});
+</script>
 
 <style>
 /* Animações para os blobs decorativos */

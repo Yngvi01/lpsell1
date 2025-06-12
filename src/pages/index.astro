@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+// Carrossel implementado com CSS e JavaScript vanilla
 import '../styles/global.css';
 import OptimizedImage from '../components/OptimizedImage.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
@@ -24,6 +25,22 @@ const passos = [
     icon: "launch",
     titulo: "Receba e Publique",
     descricao: "Em poucas horas sua landing page estará pronta para ser publicada e começar a converter."
+  }
+];
+
+// Dados das imagens para o carrossel
+const carouselImages = [
+  {
+    src: "/images/card1.png",
+    alt: "Passo 1: Escolha um Modelo"
+  },
+  {
+    src: "/images/card2.png",
+    alt: "Passo 2: Personalize"
+  },
+  {
+    src: "/images/card3.png",
+    alt: "Passo 3: Receba e Publique"
   }
 ];
 
@@ -64,11 +81,11 @@ const depoimentos = [
 	<main class="min-h-screen bg-gradient-to-b from-indigo-50 to-white">
 		<Header currentPage="home" />
 
-		<!-- Hero section ultra-moderno -->
+		<!-- Hero Section -->
 		<section class="relative pt-8 pb-16 md:pt-16 md:pb-28 overflow-hidden">
 			<!-- Background com gradiente animado -->
 			<div class="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50"></div>
-			<div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%234f46e5" fill-opacity="0.03"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
+			<div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%234f46e5" fill-opacity="0.03"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')" opacity-40"></div>
 			
 			<div class="container mx-auto px-4 relative z-10">
 				<div class="flex flex-col lg:flex-row items-center justify-between gap-16">
@@ -271,41 +288,84 @@ const depoimentos = [
 					<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-heading">Como Funciona</h2>
 					<p class="text-xl text-gray-700 max-w-3xl mx-auto">Processo simples e rápido para ter sua landing page profissional funcionando em tempo recorde.</p>
 				</div>
-				<div class="grid md:grid-cols-3 gap-8 md:gap-12">
-					{passos.map((passo, index) => (
-						<div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll" data-animation="fadeInUp" data-animation-delay={`${index * 200}`}>
-							<div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-6 text-white shadow-md">
-								{passo.icon === "select" && (
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-									</svg>
-								)}
-								{passo.icon === "customize" && (
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-									</svg>
-								)}
-								{passo.icon === "launch" && (
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-									</svg>
-								)}
-							</div>
-							<div class="flex items-center mb-4">
-								<div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center mr-3 font-bold">{index + 1}</div>
-								<h3 class="text-xl font-bold text-gray-900 font-heading">{passo.titulo}</h3>
-							</div>
-							<p class="text-gray-700">{passo.descricao}</p>
-							<div class="mt-6 pt-6 border-t border-gray-100">
-								<a href="/area" class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center text-sm">
-									Ver modelos disponíveis
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-										<path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-									</svg>
-								</a>
-							</div>
+				<div class="relative">
+					<!-- Carrossel de imagens -->
+					<div class="carousel-container relative overflow-hidden rounded-2xl shadow-2xl mb-12">
+						<div class="carousel-wrapper flex transition-transform duration-500 ease-in-out" id="carousel-wrapper">
+							{carouselImages.map((image, index) => (
+								<div class="carousel-slide w-full flex-shrink-0">
+									<img 
+										src={image.src} 
+										alt={image.alt}
+										class="w-full h-64 md:h-80 object-cover"
+										loading="lazy"
+									/>
+								</div>
+							))}
 						</div>
-					))}
+						
+						<!-- Controles do carrossel -->
+						<button 
+							id="prev-btn" 
+							class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+						>
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+							</svg>
+						</button>
+						
+						<button 
+							id="next-btn" 
+							class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+						>
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+							</svg>
+						</button>
+						
+						<!-- Indicadores -->
+						<div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+							{carouselImages.map((_, index) => (
+								<button 
+									class="carousel-indicator w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300" 
+									data-index={index}
+								></button>
+							))}
+						</div>
+					</div>
+					
+					<!-- Informações dos passos abaixo do carrossel -->
+					<div class="grid md:grid-cols-3 gap-8 mt-12">
+						{passos.map((passo, index) => (
+							<div class="text-center animate-on-scroll" data-animation="fadeInUp" data-animation-delay={`${index * 200}`}>
+								<div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-6 text-white shadow-md mx-auto">
+									{passo.icon === "select" && (
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+										</svg>
+									)}
+									{passo.icon === "customize" && (
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+										</svg>
+									)}
+									{passo.icon === "launch" && (
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+										</svg>
+									)}
+								</div>
+								<h3 class="text-2xl font-bold text-gray-900 mb-4 font-heading">{passo.titulo}</h3>
+								<p class="text-gray-700 mb-6 leading-relaxed">{passo.descricao}</p>
+								<div class="flex items-center justify-center text-indigo-600 font-semibold group cursor-pointer">
+									<span class="mr-2">Passo {index + 1}</span>
+									<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+									</svg>
+								</div>
+							</div>
+						))}
+					</div>
 				</div>
 			</div>
 		</section>
@@ -421,27 +481,27 @@ const depoimentos = [
 							</div>
 						</div>
 						<div class="md:w-2/3 p-8">
-							<form class="space-y-6">
+							<form id="contact-form" class="space-y-6">
 								<div class="grid md:grid-cols-2 gap-6">
 									<div>
-										<label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
-										<input type="text" id="nome" name="nome" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Seu nome" />
+										<label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome <span class="text-red-500">*</span></label>
+										<input type="text" id="nome" name="nome" required class="form-input" placeholder="Seu nome" />
 									</div>
 									<div>
-										<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-										<input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="seu@email.com" />
+										<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
+										<input type="email" id="email" name="email" required class="form-input" placeholder="seu@email.com" />
 									</div>
 								</div>
 								<div>
-									<label for="assunto" class="block text-sm font-medium text-gray-700 mb-1">Assunto</label>
-									<input type="text" id="assunto" name="assunto" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Assunto da mensagem" />
+									<label for="assunto" class="block text-sm font-medium text-gray-700 mb-1">Assunto <span class="text-red-500">*</span></label>
+									<input type="text" id="assunto" name="assunto" required class="form-input" placeholder="Assunto da mensagem" />
 								</div>
 								<div>
-									<label for="mensagem" class="block text-sm font-medium text-gray-700 mb-1">Mensagem</label>
-									<textarea id="mensagem" name="mensagem" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" placeholder="Sua mensagem"></textarea>
+									<label for="mensagem" class="block text-sm font-medium text-gray-700 mb-1">Mensagem <span class="text-red-500">*</span></label>
+									<textarea id="mensagem" name="mensagem" rows="4" required class="form-input" placeholder="Sua mensagem"></textarea>
 								</div>
 								<div>
-									<button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors shadow-sm">Enviar Mensagem</button>
+									<button type="submit" class="btn-ripple w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5">Enviar Mensagem</button>
 								</div>
 							</form>
 						</div>
@@ -520,7 +580,6 @@ const depoimentos = [
 							<li><a href="#" class="hover:text-white transition-colors">Início</a></li>
 							<li><a href="#como-funciona" class="hover:text-white transition-colors">Como Funciona</a></li>
 							<li><a href="/area" class="hover:text-white transition-colors">Modelos</a></li>
-							<li><a href="#depoimentos" class="hover:text-white transition-colors">Depoimentos</a></li>
 							<li><a href="#contato" class="hover:text-white transition-colors">Contato</a></li>
 						</ul>
 					</div>
@@ -552,6 +611,330 @@ const depoimentos = [
 		</footer>
 	</main>
 </Layout>
+
+<!-- Scroll Progress Indicator -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">
+	<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+		<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+	</svg>
+</button>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// Scroll Progress Indicator
+		const scrollProgress = document.getElementById('scroll-progress');
+		const backToTop = document.getElementById('back-to-top');
+		const header = document.getElementById('main-header');
+		
+		function updateScrollProgress() {
+			const scrollTop = window.pageYOffset;
+			const docHeight = document.body.scrollHeight - window.innerHeight;
+			const scrollPercent = (scrollTop / docHeight) * 100;
+			scrollProgress.style.width = scrollPercent + '%';
+			
+			// Show/hide back to top button
+			if (scrollTop > 300) {
+				backToTop.classList.add('visible');
+			} else {
+				backToTop.classList.remove('visible');
+			}
+			
+			// Header background opacity
+			if (scrollTop > 50) {
+				header.style.background = 'rgba(255, 255, 255, 0.98)';
+				header.style.backdropFilter = 'blur(20px)';
+			} else {
+				header.style.background = 'rgba(255, 255, 255, 0.95)';
+				header.style.backdropFilter = 'blur(12px)';
+			}
+		}
+		
+		window.addEventListener('scroll', updateScrollProgress);
+		
+		// Back to top functionality
+		backToTop.addEventListener('click', () => {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		});
+		
+		// Mobile menu functionality
+		const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+		const mobileMenu = document.getElementById('mobile-menu');
+		
+		if (mobileMenuBtn && mobileMenu) {
+			mobileMenuBtn.addEventListener('click', () => {
+				mobileMenu.classList.toggle('hidden');
+			});
+		}
+		
+		// Smooth scroll for anchor links
+		document.querySelectorAll('.smooth-scroll').forEach(link => {
+			link.addEventListener('click', function(e) {
+				const href = this.getAttribute('href');
+				if (href.startsWith('#')) {
+					e.preventDefault();
+					const target = document.querySelector(href);
+					if (target) {
+						const offsetTop = target.offsetTop - 80; // Account for fixed header
+						window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+					}
+				}
+			});
+		});
+		
+		// Intersection Observer for scroll animations
+		const observerOptions = {
+			threshold: 0.1,
+			rootMargin: '0px 0px -50px 0px'
+		};
+		
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					const delay = entry.target.dataset.animationDelay || 0;
+					setTimeout(() => {
+						entry.target.classList.add('animate');
+					}, delay);
+				}
+			});
+		}, observerOptions);
+		
+		document.querySelectorAll('.animate-on-scroll').forEach(el => {
+			observer.observe(el);
+		});
+		
+		// Enhanced Carousel functionality
+		const wrapper = document.getElementById('carousel-wrapper');
+		const prevBtn = document.getElementById('prev-btn');
+		const nextBtn = document.getElementById('next-btn');
+		const indicators = document.querySelectorAll('.carousel-indicator');
+		const slides = document.querySelectorAll('.carousel-slide');
+		const carouselContainer = document.querySelector('.carousel-container');
+		
+		let currentIndex = 0;
+		const totalSlides = slides.length;
+		let autoPlayInterval;
+		let isAutoPlaying = true;
+		
+		// Touch/swipe support
+		let startX = 0;
+		let endX = 0;
+		
+		function updateCarousel() {
+			const translateX = -currentIndex * 100;
+			wrapper.style.transform = `translateX(${translateX}%)`;
+			
+			// Update indicators
+			indicators.forEach((indicator, index) => {
+				indicator.classList.remove('active', 'bg-white');
+				indicator.classList.add('bg-white/50');
+				if (index === currentIndex) {
+					indicator.classList.add('active', 'bg-white');
+					indicator.classList.remove('bg-white/50');
+				}
+			});
+			
+			// Update button states
+			prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+			nextBtn.style.opacity = currentIndex === totalSlides - 1 ? '0.5' : '1';
+		}
+		
+		function nextSlide() {
+			if (currentIndex < totalSlides - 1) {
+				currentIndex++;
+			} else {
+				currentIndex = 0;
+			}
+			updateCarousel();
+		}
+		
+		function prevSlide() {
+			if (currentIndex > 0) {
+				currentIndex--;
+			} else {
+				currentIndex = totalSlides - 1;
+			}
+			updateCarousel();
+		}
+		
+		function startAutoPlay() {
+			if (isAutoPlaying) {
+				autoPlayInterval = setInterval(nextSlide, 4000);
+			}
+		}
+		
+		function stopAutoPlay() {
+			clearInterval(autoPlayInterval);
+		}
+		
+		// Event listeners
+		prevBtn.addEventListener('click', () => {
+			stopAutoPlay();
+			prevSlide();
+			setTimeout(startAutoPlay, 2000);
+		});
+		
+		nextBtn.addEventListener('click', () => {
+			stopAutoPlay();
+			nextSlide();
+			setTimeout(startAutoPlay, 2000);
+		});
+		
+		indicators.forEach((indicator, index) => {
+			indicator.addEventListener('click', () => {
+				stopAutoPlay();
+				currentIndex = index;
+				updateCarousel();
+				setTimeout(startAutoPlay, 2000);
+			});
+		});
+		
+		// Touch events for mobile
+		if (carouselContainer) {
+			carouselContainer.addEventListener('touchstart', (e) => {
+				startX = e.touches[0].clientX;
+				stopAutoPlay();
+			});
+			
+			carouselContainer.addEventListener('touchend', (e) => {
+				endX = e.changedTouches[0].clientX;
+				const diff = startX - endX;
+				
+				if (Math.abs(diff) > 50) { // Minimum swipe distance
+					if (diff > 0) {
+						nextSlide();
+					} else {
+						prevSlide();
+					}
+				}
+				
+				setTimeout(startAutoPlay, 2000);
+			});
+		}
+		
+		// Keyboard navigation
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowLeft') {
+				stopAutoPlay();
+				prevSlide();
+				setTimeout(startAutoPlay, 2000);
+			} else if (e.key === 'ArrowRight') {
+				stopAutoPlay();
+				nextSlide();
+				setTimeout(startAutoPlay, 2000);
+			}
+		});
+		
+		// Pause on hover
+		if (carouselContainer) {
+			carouselContainer.addEventListener('mouseenter', stopAutoPlay);
+			carouselContainer.addEventListener('mouseleave', startAutoPlay);
+		}
+		
+		// Initialize carousel
+		updateCarousel();
+		startAutoPlay();
+		
+		// Form validation
+		const contactForm = document.querySelector('#contact-form');
+		if (contactForm) {
+			const inputs = contactForm.querySelectorAll('input, textarea');
+			
+			inputs.forEach(input => {
+				input.addEventListener('blur', validateField);
+				input.addEventListener('input', clearValidation);
+			});
+			
+			contactForm.addEventListener('submit', handleFormSubmit);
+		}
+		
+		function validateField(e) {
+			const field = e.target;
+			const value = field.value.trim();
+			let isValid = true;
+			let message = '';
+			
+			// Remove existing validation
+			clearValidation(e);
+			
+			switch (field.type) {
+				case 'email':
+					const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+					if (!value) {
+						isValid = false;
+						message = 'Email é obrigatório';
+					} else if (!emailRegex.test(value)) {
+						isValid = false;
+						message = 'Email inválido';
+					}
+					break;
+				case 'text':
+					if (!value) {
+						isValid = false;
+						message = 'Este campo é obrigatório';
+					}
+					break;
+				default:
+					if (field.tagName === 'TEXTAREA' && !value) {
+						isValid = false;
+						message = 'Mensagem é obrigatória';
+					}
+			}
+			
+			showValidation(field, isValid, message);
+		}
+		
+		function clearValidation(e) {
+			const field = e.target;
+			field.classList.remove('error', 'success');
+			const message = field.parentNode.querySelector('.validation-message');
+			if (message) {
+				message.remove();
+			}
+		}
+		
+		function showValidation(field, isValid, message) {
+			field.classList.add(isValid ? 'success' : 'error');
+			
+			if (message) {
+				const messageEl = document.createElement('div');
+				messageEl.className = `validation-message ${isValid ? 'success' : 'error'}`;
+				messageEl.textContent = message;
+				field.parentNode.appendChild(messageEl);
+			}
+		}
+		
+		function handleFormSubmit(e) {
+			e.preventDefault();
+			
+			const submitBtn = contactForm.querySelector('button[type="submit"]');
+			const originalText = submitBtn.textContent;
+			
+			// Add loading state
+			submitBtn.classList.add('btn-loading');
+			submitBtn.disabled = true;
+			
+			// Simulate form submission
+			setTimeout(() => {
+				submitBtn.classList.remove('btn-loading');
+				submitBtn.disabled = false;
+				submitBtn.textContent = 'Mensagem Enviada!';
+				submitBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+				submitBtn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+				
+				// Reset after 3 seconds
+				setTimeout(() => {
+					submitBtn.textContent = originalText;
+					submitBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+					submitBtn.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+					contactForm.reset();
+				}, 3000);
+			}, 2000);
+		}
+	});
+</script>
 
 <style>
 /* Animações para os blobs decorativos */

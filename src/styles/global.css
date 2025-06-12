@@ -8,6 +8,7 @@
   --color-primary-dark: #4338ca;
   --color-secondary: #f472b6;
   --color-accent: #8b5cf6;
+  --scroll-progress-height: 3px;
 }
 
 /* Estilos globais */
@@ -17,11 +18,63 @@ html {
 
 body {
   font-family: var(--font-sans);
+  padding-top: 64px; /* Compensar header fixo */
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
 }
+
+/* Scroll Progress Indicator */
+.scroll-progress {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 0%;
+  height: var(--scroll-progress-height);
+  background: linear-gradient(90deg, #4f46e5, #8b5cf6);
+  z-index: 1000;
+  transition: width 0.1s ease-out;
+}
+
+/* Smooth scroll para links internos */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+}
+
+/* Botão mantido no lado esquerdo em todos os tamanhos de tela */
 
 /* Estilos para botões com efeito de hover melhorado */
 .btn-primary {
@@ -30,6 +83,58 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-secondary {
   @apply bg-white hover:bg-gray-50 text-indigo-600 font-medium py-3 px-8 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg border border-indigo-200 transform hover:-translate-y-1;
+}
+
+/* Efeito Ripple para botões */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-ripple:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Melhorias nos estados de foco para acessibilidade */
+.btn-primary:focus,
+.btn-secondary:focus,
+.btn-ripple:focus {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
+/* Estados de loading para botões */
+.btn-loading {
+  position: relative;
+  color: transparent;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin: -0.5rem 0 0 -0.5rem;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
 /* Estilos para cards com efeito de hover */
@@ -115,6 +220,146 @@ h1, h2, h3, h4, h5, h6 {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animações de entrada */
+.animate-on-scroll {
+  opacity: 0;
+  transition: all 0.6s ease-out;
+}
+
+.animate-on-scroll.animate {
+  opacity: 1;
+}
+
+.animate-on-scroll[data-animation="fadeInUp"].animate {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-on-scroll[data-animation="fadeInLeft"].animate {
+  animation: fadeInLeft 0.6s ease-out forwards;
+}
+
+.animate-on-scroll[data-animation="fadeInRight"].animate {
+  animation: fadeInRight 0.6s ease-out forwards;
+}
+
+/* Suporte para reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-blob,
+  .animate-float,
+  .animate-bounce-slow,
+  .animate-gradient {
+    animation: none !important;
+  }
+}
+
+/* Melhorias no carrossel */
+.carousel-container {
+  position: relative;
+  touch-action: pan-y;
+}
+
+.carousel-wrapper {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  user-select: none;
+}
+
+.carousel-indicator {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-indicator:hover {
+  transform: scale(1.2);
+}
+
+.carousel-indicator.active {
+  background-color: white !important;
+  transform: scale(1.1);
+}
+
+/* Melhorias nos formulários */
+.form-input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300;
+}
+
+.form-input:focus {
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.form-input.error {
+  @apply border-red-500 focus:ring-red-500 focus:border-red-500;
+}
+
+.form-input.success {
+  @apply border-green-500 focus:ring-green-500 focus:border-green-500;
+}
+
+/* Estados de validação */
+.validation-message {
+  @apply text-sm mt-1 transition-all duration-300;
+}
+
+.validation-message.error {
+  @apply text-red-600;
+}
+
+.validation-message.success {
+  @apply text-green-600;
 }
 
 @keyframes breathing {
