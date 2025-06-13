@@ -9,6 +9,61 @@
   --color-secondary: #f472b6;
   --color-accent: #8b5cf6;
   --scroll-progress-height: 3px;
+  
+  /* Variáveis de tema - Light Mode (padrão) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --card-bg: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.8);
+}
+
+/* Dark Mode - Detecção automática da preferência do sistema */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --border-color: #475569;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --card-bg: #1e293b;
+    --header-bg: rgba(15, 23, 42, 0.8);
+  }
+}
+
+/* Classes para forçar tema específico */
+.theme-light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --card-bg: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.8);
+}
+
+.theme-dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: #475569;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --card-bg: #1e293b;
+  --header-bg: rgba(15, 23, 42, 0.8);
 }
 
 /* Estilos globais */
@@ -19,10 +74,43 @@ html {
 body {
   font-family: var(--font-sans);
   padding-top: 64px; /* Compensar header fixo */
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  color: var(--text-primary);
+}
+
+/* Aplicar cores do tema aos elementos */
+.bg-white {
+  background-color: var(--card-bg) !important;
+}
+
+.bg-gray-50 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.bg-gray-100 {
+  background-color: var(--bg-tertiary) !important;
+}
+
+.text-gray-600 {
+  color: var(--text-secondary) !important;
+}
+
+.text-gray-500 {
+  color: var(--text-muted) !important;
+}
+
+.border-gray-200 {
+  border-color: var(--border-color) !important;
+}
+
+.border-gray-300 {
+  border-color: var(--border-color) !important;
 }
 
 /* Scroll Progress Indicator */
@@ -72,6 +160,187 @@ h1, h2, h3, h4, h5, h6 {
 .back-to-top:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+}
+
+/* Botões de alternância de tema na navbar - Design Minimalista */
+.theme-toggle-navbar {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+.theme-toggle-navbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--card-bg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+}
+
+.theme-toggle-navbar:hover {
+  color: var(--text-primary);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle-navbar:hover::before {
+  opacity: 0.8;
+}
+
+.theme-toggle-navbar:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle-navbar:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-primary), 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* Ícones do tema na navbar - Estilo Minimalista com SVG */
+.theme-toggle-navbar .sun-icon,
+.theme-toggle-navbar .moon-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+  opacity: 0.8;
+}
+
+.theme-toggle-navbar .sun-icon svg,
+.theme-toggle-navbar .moon-icon svg {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.theme-toggle-navbar:hover .sun-icon,
+.theme-toggle-navbar:hover .moon-icon {
+  opacity: 1;
+  transform: rotate(8deg) scale(1.15);
+}
+
+.theme-toggle-navbar:hover .sun-icon svg,
+.theme-toggle-navbar:hover .moon-icon svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.theme-toggle-navbar .sun-icon {
+  display: none;
+  animation: iconFadeIn 0.4s ease-out;
+}
+
+.theme-toggle-navbar .moon-icon {
+  display: flex;
+  animation: iconFadeIn 0.4s ease-out;
+}
+
+.theme-dark .theme-toggle-navbar .sun-icon {
+  display: flex;
+  animation: iconFadeIn 0.4s ease-out;
+}
+
+.theme-dark .theme-toggle-navbar .moon-icon {
+  display: none;
+}
+
+/* Animação especial para o sol */
+.theme-toggle-navbar:hover .sun-icon svg {
+  animation: sunRotate 2s linear infinite;
+}
+
+/* Animação especial para a lua */
+.theme-toggle-navbar:hover .moon-icon svg {
+  animation: moonGlow 1.5s ease-in-out infinite alternate;
+}
+
+/* Animações para os ícones SVG */
+@keyframes iconFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7) rotate(-15deg);
+  }
+  to {
+    opacity: 0.8;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes sunRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes moonGlow {
+  from {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+  }
+  to {
+    filter: drop-shadow(0 0 8px rgba(147, 197, 253, 0.4)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+  }
+}
+
+/* Animação suave para troca de ícones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotate(-10deg);
+  }
+  to {
+    opacity: 0.7;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Efeito de pulso sutil no foco */
+.theme-toggle-navbar:focus .sun-icon,
+.theme-toggle-navbar:focus .moon-icon {
+  animation: gentlePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Texto do tema mobile */
+.theme-toggle-navbar .theme-text {
+  transition: all 0.3s ease;
+}
+
+/* Aplicar cores do tema ao header */
+.header {
+  background-color: var(--header-bg) !important;
+  border-bottom-color: var(--border-color) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#main-header {
+  background-color: var(--header-bg) !important;
+  border-bottom-color: var(--border-color) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* Botão mantido no lado esquerdo em todos os tamanhos de tela */
@@ -385,4 +654,226 @@ h1, h2, h3, h4, h5, h6 {
 /* Estilos para imagens com borda arredondada e sombra */
 .img-feature {
   @apply rounded-xl shadow-lg;
+}
+
+/* Estilos adicionais para compatibilidade com temas */
+.card {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.header {
+  background-color: var(--header-bg);
+  border-bottom-color: var(--border-color);
+}
+
+/* Melhorias para formulários no tema escuro */
+.form-input {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Ajustes para botões no tema escuro */
+.btn-secondary {
+  background-color: var(--card-bg);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-secondary);
+}
+
+/* Transições suaves para mudança de tema */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Ajustes para elementos com fundo branco */
+.bg-white,
+.bg-gray-50,
+.bg-gray-100 {
+  transition: background-color 0.3s ease;
+}
+
+/* Ajustes para texto */
+.text-gray-600 {
+  color: var(--text-secondary) !important;
+  transition: color 0.3s ease;
+}
+
+.text-gray-500 {
+  color: var(--text-muted) !important;
+  transition: color 0.3s ease;
+}
+
+.text-gray-700 {
+  color: var(--text-primary) !important;
+  transition: color 0.3s ease;
+}
+
+.text-gray-800 {
+  color: var(--text-primary) !important;
+  transition: color 0.3s ease;
+}
+
+.text-gray-900 {
+  color: var(--text-primary) !important;
+  transition: color 0.3s ease;
+}
+
+/* Ajustes para fundos de seções */
+.bg-gradient-to-b {
+  background: var(--bg-primary) !important;
+}
+
+.bg-gradient-to-br {
+  background: var(--bg-primary) !important;
+}
+
+.from-indigo-50 {
+  background: var(--bg-primary) !important;
+}
+
+.to-white {
+  background: var(--bg-primary) !important;
+}
+
+.via-white {
+  background: var(--bg-primary) !important;
+}
+
+.to-purple-50 {
+  background: var(--bg-primary) !important;
+}
+
+/* Ajustes para badges e elementos com gradiente */
+.from-indigo-100 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.to-purple-100 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.text-indigo-700 {
+  color: var(--color-primary) !important;
+}
+
+/* Ajustes para seções específicas */
+section {
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
+}
+
+main {
+  background-color: var(--bg-primary) !important;
+  transition: background-color 0.3s ease;
+}
+
+/* Ajustes adicionais para containers e divs */
+.container {
+  background-color: transparent;
+}
+
+/* Ajustes para elementos com classes específicas do Tailwind */
+.bg-indigo-50 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.bg-purple-50 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.bg-slate-50 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.bg-slate-100 {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* Ajustes para bordas */
+.border-indigo-200 {
+  border-color: var(--border-color) !important;
+}
+
+.border-purple-200 {
+  border-color: var(--border-color) !important;
+}
+
+.border-slate-200 {
+  border-color: var(--border-color) !important;
+}
+
+/* Ajustes para sombras no modo escuro */
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 var(--shadow-color) !important;
+}
+
+.shadow {
+  box-shadow: 0 1px 3px 0 var(--shadow-color), 0 1px 2px -1px var(--shadow-color) !important;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color) !important;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color) !important;
+}
+
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color) !important;
+}
+
+/* Ajustes para elementos de destaque */
+.bg-green-50 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.text-green-600 {
+  color: #10b981 !important;
+}
+
+.text-green-700 {
+  color: #059669 !important;
+}
+
+.bg-red-50 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.text-red-600 {
+  color: #dc2626 !important;
+}
+
+.text-red-700 {
+  color: #b91c1c !important;
+}
+
+/* Ajustes para elementos com opacity */
+.bg-opacity-95 {
+  background-color: var(--header-bg) !important;
+}
+
+/* Garantir que divs não tenham fundo específico */
+div:not([class*="bg-"]):not([class*="gradient"]) {
+  background-color: transparent;
+}
+
+/* Responsividade do botão back-to-top */
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 1rem;
+    left: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }
