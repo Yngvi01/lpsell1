@@ -877,3 +877,25 @@ div:not([class*="bg-"]):not([class*="gradient"]) {
     height: 2.5rem;
   }
 }
+@keyframes animatedGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient-border {
+  background: linear-gradient(270deg, #60a5fa, #818cf8, #a855f7, #9333ea, #60a5fa);
+  background-size: 600% 600%;
+  animation: animatedGradient 10s ease infinite;
+  padding: 2px;
+  border-radius: 1rem; /* Igual ao card interno */
+  box-shadow: 0 0 15px rgba(129, 140, 248, 0.4); /* brilho sutil */
+}
+
+
